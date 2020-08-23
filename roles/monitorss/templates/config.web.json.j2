@@ -1,0 +1,29 @@
+{
+  "log": {
+    "level": "{{ MONITORSS_WEB_LOG_LEVEL }}",
+    "destination": "{{ MONITORSS_WEB_LOG_DESTINATION }}"
+  },
+  "bot": {
+    "token": "{{ MONITORSS_WEB_BOT_TOKEN }}",
+    "redirectURI": "{{ MONITORSS_WEB_BOT_REDIRECTURI }}",
+    "clientID": "{{ MONITORSS_WEB_BOT_CLIENTID }}",
+    "clientSecret": "{{ MONITORSS_WEB_BOT_CLIENTSECRET }}"
+  },
+  "database": {
+    "uri": "{{ MONITORSS_WEB_DATABASE_URI }}",
+    "connection": {{ MONITORSS_WEB_DATABASE_CONNECTION}},
+    "redis": "{{ MONITORSS_WEB_DATABASE_REDIS }}"
+  },
+  "http": {
+    "trustProxy": {{ MONITORSS_WEB_HTTP_TRUSTPROXY | lower }},
+    "sessionSecret": "{{ MONITORSS_WEB_HTTP_SESSIONSECRET }}",
+    "port": {{ MONITORSS_WEB_HTTP_PORT }}
+  },
+  "https": {
+    "enabled": {{ MONITORSS_WEB_HTTPS_ENABLED | lower }},
+    "privateKey": "{{ MONITORSS_WEB_HTTPS_PRIVATEKEY }}",
+    "certificate": "{{ MONITORSS_WEB_HTTPS_CERTIFICATE }}",
+    "chain": "{{ MONITORSS_WEB_HTTPS_CHAIN }}",
+    "port": {{ MONITORSS_WEB_HTTPS_PORT }}
+  }
+}

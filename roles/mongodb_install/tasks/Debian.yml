@@ -1,0 +1,33 @@
+---
+- name: Install required packages
+  become: yes
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+    cache_valid_time: 3600
+
+- name: Add mongodb keyring to gpg
+  become: yes
+  apt_key:
+    url: https://www.mongodb.org/static/pgp/server-{{ MONGODB_VERSION }}.asc
+    id: "{{ MONGODB_GPG_ID }}"
+
+- name: Add mongodb repository
+  become: yes
+  apt_repository:
+    repo: deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/{{ MONGODB_VERSION }} main
+
+- name: Install mongodb
+  become: yes
+  apt:
+    cache_valid_time: 3600
+    name: mongodb-org
+    state: present
+
+- name: enable systemd unit for mongodb
+  become: yes
+  systemd:
+    name: mongod
+    enabled: yes
+    state: started

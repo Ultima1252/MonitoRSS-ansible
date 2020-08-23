@@ -1,0 +1,8 @@
+---
+- name: Install required packages
+  become: yes
+  apt:
+    pkg:
+      - git
+      - redis
+    cache_valid_time: 3600

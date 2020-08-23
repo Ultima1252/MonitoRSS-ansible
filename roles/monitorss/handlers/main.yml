@@ -1,0 +1,19 @@
+---
+- name: Restart MonitoRSS
+  become: yes
+  service:
+    name: monitorss
+    state: restarted
+  when: not systemd_monitorss.changed | bool
+
+- name: Restart MonitoRSS web
+  become: yes
+  service:
+    name: monitorss-web
+    state: restarted
+  when: not systemd_monitorss_web.changed | bool
+
+- name: daemon_reload
+  become: yes
+  systemd:
+    daemon_reload: yes

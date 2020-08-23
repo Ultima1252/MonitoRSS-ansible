@@ -1,0 +1,17 @@
+[Unit]
+Description=MonitoRSS web
+
+[Service]
+WorkingDirectory={{ MONITORSS_DIR }}
+ExecStart=/usr/bin/node {{ MONITORSS_DIR }}/server.js
+Type=simple
+Restart=on-failure
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=monitorss-web
+Environment="DRSS_START=web"
+User={{ MONITORSS_USER }}
+Group={{ MONITORSS_USER }}
+
+[Install]
+WantedBy=multi-user.target

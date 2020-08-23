@@ -1,0 +1,74 @@
+---
+# Install systemd units
+- name: Copy systemd unit monitorss
+  become: yes
+  template:
+    mode: 0755
+    src: systemd/monitorss.service.j2
+    dest: /etc/systemd/system/monitorss.service
+  when: MONITORSS_BOT_ENABLE | bool
+
+- name: Copy systemd unit monitorss-web
+  become: yes
+  template:
+    mode: 0755
+    src: systemd/monitorss-web.service.j2
+    dest: /etc/systemd/system/monitorss-web.service
+  when: MONITORSS_WEB_ENABLE | bool
+
+- name: enable and start monitorss
+  become: yes
+  systemd:
+    name: monitorss
+    enabled: yes
+    daemon_reload: yes
+    state: started
+  when: MONITORSS_BOT_ENABLE | bool
+  register: systemd_monitorss
+
+- name: enable and start monitorss-web
+  become: yes
+  systemd:
+    name: monitorss-web
+    enabled: yes
+    daemon_reload: yes
+    state: started
+  when: MONITORSS_WEB_ENABLE | bool
+  register: systemd_monitorss_web
+
+
+- name: disable and stop monitorss
+  become: yes
+  systemd:
+    name: monitorss
+    enabled: no
+    state: stopped
+  when: not MONITORSS_BOT_ENABLE | bool
+  ignore_errors: yes
+  notify:
+    - daemon_reload
+
+- name: disable and stop monitorss-web
+  become: yes
+  systemd:
+    name: monitorss-web
+    enabled: no
+    state: stopped
+  when: not MONITORSS_WEB_ENABLE | bool
+  ignore_errors: yes
+  notify:
+    - daemon_reload
+
+- name: Delete systemd unit monitorss
+  become: yes
+  file:
+    path: /etc/systemd/system/monitorss.service
+    state: absent
+  when: not MONITORSS_BOT_ENABLE | bool
+
+- name: Delete systemd unit monitorss-web
+  become: yes
+  file:
+    path: /etc/systemd/system/monitorss-web.service
+    state: absent
+  when: not MONITORSS_WEB_ENABLE | bool

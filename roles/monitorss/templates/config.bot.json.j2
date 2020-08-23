@@ -1,0 +1,63 @@
+{
+  "log": {
+    "level": "{{ MONITORSS_BOT_LOG_LEVEL }}",
+    "destination": "{{ MONITORSS_BOT_LOG_DESTINATION }}",
+    "linkErrs": {{ MONITORSS_BOT_LOG_LINKERRS | lower }},
+    "unfiltered": {{ MONITORSS_BOT_LOG_UNFILTERED | lower }},
+    "rateLimitHits": {{ MONITORSS_BOT_LOG_RATELIMITHITS | lower }},
+    "failedFeeds": {{ MONITORSS_BOT_LOG_FAILEDFEEDS | lower }}
+  },
+  "bot": {
+    "token": "{{ MONITORSS_BOT_BOT_TOKEN }}",
+    "locale": "{{ MONITORSS_BOT_BOT_LOCALE }}",
+    "enableCommands": {{ MONITORSS_BOT_BOT_ENABLECOMMANDS | lower }},
+    "prefix": "{{ MONITORSS_BOT_BOT_PREFIX }}",
+    "status": "{{ MONITORSS_BOT_BOT_STATUS }}",
+    "activityType": "{{ MONITORSS_BOT_BOT_ACTIVITYTYPE }}",
+    "activityName": "{{ MONITORSS_BOT_BOT_ACTIVITYNAME }}",
+    "streamActivityURL": "{{ MONITORSS_BOT_BOT_STREAMACTIVITYURL }}",
+    "ownerIDs": {{ MONITORSS_BOT_BOT_OWNERIDS }},
+    "menuColor": {{ MONITORSS_BOT_BOT_MENUCOLOR }},
+    "deleteMenus": {{ MONITORSS_BOT_BOT_DELETEMENUS | lower }},
+    "runSchedulesOnStart": {{ MONITORSS_BOT_BOT_RUNSCHEEDULESONSTART | lower }},
+    "exitOnSocketIssues": {{ MONITORSS_BOT_BOT_EXITONSOCKETISSUES | lower }},
+    "exitOnDatabaseDisconnect": {{ MONITORSS_BOT_BOT_EXITONDATABASEDISCONNECT | lower }},
+    "userAgent": "{{ MONITORSS_BOT_BOT_USERAGENT }}"
+  },
+  "database": {
+    "uri": "{{ MONITORSS_BOT_DATABASE_URI }}",
+    "redis": "{{ MONITORSS_BOT_DATABASE_REDIS }}",
+    "connection": {{ MONITORSS_BOT_DATABASE_CONNECTION }},
+    "articlesExpire": {{ MONITORSS_BOT_DATABASE_ACTICLESEXPIRE }},
+    "deliveryRecordsExpire": {{ MONITORSS_BOT_DATABASE_DELIVERYRECORDSEXPIRE }}
+  },
+  "feeds": {
+    "refreshRateMinutes": {{ MONITORSS_BOT_FEEDS_REFRESHRATEMINUTES }},
+    "articleDailyChannelLimit": {{ MONITORSS_BOT_FEEDS_ACTICLEDAILYCHANNELLIMIT }},
+    "timezone": "{{ MONITORSS_BOT_FEEDS_TIMEZONE }}",
+    "dateFormat": "{{ MONITORSS_BOT_FEEDS_DATEFORMAT }}",
+    "dateLanguage": "{{ MONITORSS_BOT_FEEDS_DATELANGUAGE }}",
+    "dateLanguageList": {{ MONITORSS_BOT_FEEDS_DATELANDUAGELIST }},
+    "dateFallback": {{ MONITORSS_BOT_FEEDS_DATEFALLBACK | lower }},
+    "timeFallback": {{ MONITORSS_BOT_FEEDS_TIMEFALLBACK | lower }},
+    "max": {{ MONITORSS_BOT_FEEDS_MAX }},
+    "hoursUntilFail": {{ MONITORSS_BOT_FEEDS_HOURSUNTILFAIL }},
+    "notifyFail": {{ MONITORSS_BOT_FEEDS_NOTIFYFAIL | lower }},
+    "sendFirstCycle": {{ MONITORSS_BOT_FEEDS_SENDFIRSTCYCLE | lower }},
+    "cycleMaxAge": {{ MONITORSS_BOT_FEEDS_CYCLEMAXAGE }},
+    "defaultText": "{{ MONITORSS_BOT_FEEDS_DEFAULTTEXT | safe }}",
+    "imgPreviews": {{ MONITORSS_BOT_FEEDS_IMGPREVIEWS | lower }},
+    "imgLinksExistence": {{ MONITORSS_BOT_FEEDS_IMGLINKSEXISTENCE | lower }},
+    "checkDates": {{ MONITORSS_BOT_FEEDS_CHECKDATES | lower }},
+    "formatTables": {{ MONITORSS_BOT_FEEDS_FORMATTABLES | lower }},
+    "directSubscribers": {{ MONITORSS_BOT_FEEDS_DIRECTSUBSCRIBERS | lower }},
+    "decode": {{ MONITORSS_BOT_FEEDS_DECODE }}
+  },
+  "advanced": {
+    "shards": {{ MONITORSS_BOT_ADVANCED_SHARDS }},
+    "batchSize": {{ MONITORSS_BOT_ADVANCED_BATCHSIZE }},
+    "parallelBatches": {{ MONITORSS_BOT_ADVANCED_PARALLELBATCHES }},
+    "parallelRuns": {{ MONITORSS_BOT_ADVANCED_PARALLELRUNS }}
+  },
+  "webURL": "{{ MONITORSS_BOT_WEBURL }}"
+}

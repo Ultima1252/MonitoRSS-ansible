@@ -1,0 +1,75 @@
+---
+# Execute distro specific dependencies here. As more
+# os's are supported, we will add them here.
+- name: Execute distribution specific dependencies
+  include_tasks: "{{ ansible_distribution }}/depends.yml"
+
+# Os agnostic tasks (hopefully)
+- name: Clone MonitoRSS
+  become: yes
+  git:
+    dest: "{{ MONITORSS_DIR }}"
+    repo: "{{ MONITORSS_REPO }}"
+    version: "{{ MONITORSS_VERSION }}"
+
+- name: Install npm packages
+  become: yes
+  npm:
+    path: "{{ MONITORSS_DIR }}"
+
+- name: Create {{ MONITORSS_USER }} user
+  become: yes
+  user:
+    name: "{{ MONITORSS_USER }}"
+    home: "{{ MONITORSS_DIR }}"
+    create_home: no
+    shell: /usr/sbin/nologin
+    system: yes
+
+# Install config.bot.json, if it is later disabled, we will
+# will also cleanup this up.
+- name: Copy config.bot.json
+  become: yes
+  template:
+    group: "{{ MONITORSS_USER }}"
+    mode: 0440
+    src: config.bot.json.j2
+    dest: "{{ MONITORSS_DIR }}/settings/config.bot.json"
+  when: MONITORSS_BOT_ENABLE | bool
+  notify:
+    - Restart MonitoRSS
+
+- name: Delete config.bot.json
+  become: yes
+  file:
+    path: "{{ MONITORSS_DIR }}/settings/config.bot.json"
+    state: absent
+  when: not MONITORSS_BOT_ENABLE | bool
+
+# Install config.web.json, if it is later disabled, we will
+# will also cleanup this up.
+- name: Copy config.web.json
+  become: yes
+  template:
+    group: "{{ MONITORSS_USER }}"
+    mode: 0440
+    src: config.web.json.j2
+    dest: "{{ MONITORSS_DIR }}/settings/config.web.json"
+  when: MONITORSS_WEB_ENABLE | bool
+  notify:
+    - Restart MonitoRSS web
+
+- name: Delete config.bot.json
+  become: yes
+  file:
+    path: "{{ MONITORSS_DIR }}/settings/config.web.json"
+    state: absent
+  when: not MONITORSS_WEB_ENABLE | bool
+
+# Execute distro specific install steps here. As more
+# os's are supported, we will add them here.
+- name: Execute distribution specific install
+  include_tasks: "{{ ansible_distribution }}/install.yml"
+
+# Flush handlers before any other playbooks are executed.
+- meta: flush_handlers

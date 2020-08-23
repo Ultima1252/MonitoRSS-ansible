@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: nodejs_install
+  - role: mongodb_install
