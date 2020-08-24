@@ -3,6 +3,8 @@
 # os's are supported, we will add them here.
 - name: Execute distribution specific dependencies
   include_tasks: "{{ ansible_distribution }}/depends.yml"
+  tags:
+    - include
 
 # Os agnostic tasks (hopefully)
 - name: Clone MonitoRSS
@@ -45,6 +47,8 @@
     path: "{{ MONITORSS_DIR }}/settings/config.bot.json"
     state: absent
   when: not MONITORSS_BOT_ENABLE | bool
+  tags:
+    - remove
 
 # Install config.web.json, if it is later disabled, we will
 # will also cleanup this up.
@@ -65,11 +69,15 @@
     path: "{{ MONITORSS_DIR }}/settings/config.web.json"
     state: absent
   when: not MONITORSS_WEB_ENABLE | bool
+  tags:
+    - remove
 
 # Execute distro specific install steps here. As more
 # os's are supported, we will add them here.
 - name: Execute distribution specific install
   include_tasks: "{{ ansible_distribution }}/install.yml"
+  tags:
+    - include
 
 # Flush handlers before any other playbooks are executed.
 - meta: flush_handlers

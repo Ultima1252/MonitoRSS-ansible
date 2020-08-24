@@ -47,6 +47,8 @@
   ignore_errors: yes
   notify:
     - daemon_reload
+  tags:
+    - remove
 
 - name: disable and stop monitorss-web
   become: yes
@@ -58,6 +60,8 @@
   ignore_errors: yes
   notify:
     - daemon_reload
+  tags:
+    - remove
 
 - name: Delete systemd unit monitorss
   become: yes
@@ -65,6 +69,8 @@
     path: /etc/systemd/system/monitorss.service
     state: absent
   when: not MONITORSS_BOT_ENABLE | bool
+  tags:
+    - remove
 
 - name: Delete systemd unit monitorss-web
   become: yes
@@ -72,3 +78,5 @@
     path: /etc/systemd/system/monitorss-web.service
     state: absent
   when: not MONITORSS_WEB_ENABLE | bool
+  tags:
+    - remove
